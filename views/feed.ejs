@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/stylesheets/feed.css" />
+  </head>
+
+  <body>
+    <div id="main">
+      <div id="feed">
+        <div class="nav">
+          <div class="nav1">
+            <h2>Instagram</h2>
+          </div>
+          <div class="nav2">
+            <i class="ri-messenger-line"></i>
+          </div>
+        </div>
+        <div class="upload-story">
+          <h1>Create Story</h1>
+          <form action="/createStory" method="post">
+            <input type="text" name="media" placeholder="upload story" />
+            <input
+              type="text"
+              name="caption"
+              placeholder="write story caption"
+            />
+            <button>submit</button>
+          </form>
+          <i id="close-upload-story" class="ri-close-line"></i>
+        </div>
+        <div id="stories">
+          <div class="add-story">
+            <img
+              src="https://plus.unsplash.com/premium_photo-1685202712934-4d34bac636d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=500&q=60"
+              alt=""
+            />
+            <i id="open-add-story" class="ri-add-fill"></i>
+          </div>
+          <div class="user-stories">
+            <% allStories.forEach(function(story){ %>
+            <div class="story">
+              <img id="story-img1" src="<%= story.media %>" alt="" />
+            </div>
+            <% }) %>
+          </div>
+        </div>
+        <div class="big-story">
+          <% allStories.forEach(function(story){ %>
+          <div class="story-big">
+            <div class="story-detail">
+              <div class="story-detail-1">
+                <img src="<%= story.user.profilePic %>" alt="" />
+                <h3><%= story.user.username %></h3>
+              </div>
+              <div class="story-detail-2">
+                <a href="/feed"><i class="ri-close-line"></i></a>
+                <i id="open-delete-story" class="ri-more-2-line"></i>
+                <div class="delete-story">
+                  <a href="/deleteStory/<%= story._id %>">Delete Story</a>
+                </div>
+              </div>
+            </div>
+            <img id="story-img1" src="<%= story.media %>" alt="" />
+            <div class="story-review">
+              <input type="text" placeholder="Send Message" />
+              <!-- <% if(story.likes.includes(user._id)){ %>
+              <i
+                id="story-like-btn"
+                style="color: red"
+                onclick="like('<%= story._id %>')"
+                class="ri-heart-3-fill"
+              ></i>
+              <% } else { %>
+              <i
+                id="story-like-btn"
+                onclick="like('<%= story._id %>')"
+                class="ri-heart-3-line"
+              ></i>
+              <% } %> -->
+              <i id="story-like-btn" onclick="like(event,'<%= story._id %>')" class="ri-heart-3-fill"></i>
+              <i class="ri-send-plane-fill"></i>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+        <div id="posts">
+          <% allPosts.forEach(function(post){ %>
+            <% if(post.user.follower.includes(currentUser._id)){ %>
+              <div class="post">
+                <div class="follow">
+                  <div class="user">
+                    <img src="<%= post.user.profilePic %>" alt="" />
+                    <h2><%= post.user.username %></h2>
+                  </div>
+                  <div class="more">
+                    <!-- <a href="/follow/<%= post.user._id %>">
+                      <i class="ri-user-shared-line"></i>
+                    </a> -->
+                    <i id="open-more-options" class="ri-more-2-line"></i>
+                    <div class="more-option">
+                      <a href=""><h4>Delete Post</h4></a>
+                      <a href="/profile/<%= post.user._id %>"><h4>View Profile</h4></a>
+                      <a href="/savepost/<%= post._id %>"><h4>Save Post</h4></a>
+                    </div>
+                  </div>
+                </div>
+                <img src="<%= post.media %>" alt="" />
+                <div class="review">
+                  <div class="number">
+                    <% if(post.likes.includes(user._id)){ %>
+                    <a href="/like/<%= post._id %>"
+                      ><i style="color: red" class="ri-heart-3-fill"></i
+                    ></a>
+                    <% } else { %>
+                    <a href="/like/<%= post._id %>"
+                      ><i class="ri-heart-3-line"></i
+                    ></a>
+                    <% } %>
+                    <h3><%= post.likes.length %></h3>
+                  </div>
+                  <div class="caption">
+                    <h2><%= post.user.username %></h2>
+                    <h1><%= post.caption %></h1>
+                  </div>
+                  <div class="comment">
+                    <h4 id="add-comment">Add a comment</h4>
+                    <div class="comments-container">
+                      <% post.comments.forEach(function(comment){ %>
+                      <div class="comments">
+                        <div class="comment-profile">
+                          <img src="<%= comment.user.profilePic %>" alt="" />
+                        </div>
+                        <div class="comment-data">
+                          <h4><%= comment.user.username %></h4>
+                          <h3><%= comment.text %></h3>
+                          <small> <%= comment.createdAt.toLocaleString() %> </small>
+                        </div>
+                        <div class="comment-review">
+                          <a href=""><i class="ri-reply-line"></i></a>
+                          <a href="/likeComment/<%= comment._id %>"
+                            ><i class="ri-heart-line"></i
+                          ></a>
+                          <a href="/delete/<%= comment._id %>"
+                            ><i class="ri-delete-bin-7-fill"></i
+                          ></a>
+                        </div>
+                      </div>
+                      <% }) %>
+                      <form action="/addComment/<%= post._id %>" method="post">
+                        <input
+                          id="comment-input"
+                          type="text"
+                          name="comment"
+                          placeholder="write comment to <%= post.user.username %>"
+                        />
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% } else{ %>
+              <div class="nothing">
+                <p>no posts to show here as you have not followed anyone yet. go to the search page to follow users</p>
+              </div>
+            <%  } %>
+          <% }) %>
+        </div>
+        <div id="page-change">
+          <a href="/feed"><i class="ri-home-2-fill"></i></a>
+          <a href="/Search"><i class="ri-search-line"></i></a>
+          <a href="/createPost"><i class="ri-add-box-line"></i></a>
+          <a href="/profile"><img src="<%= currentUser.profilePic %>" alt=""></a> 
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"
+      integrity="sha512-emSwuKiMyYedRwflbZB2ghzX8Cw8fmNVgZ6yQNNXXagFzFOaQmbvQ1vmDkddHjm5AITcBIZfC7k4ShQSjgPAmQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // CODE TO OPEN COMMENT INPUT FIELD
+
+      document.querySelectorAll("#add-comment").forEach(function (openInput) {
+        var click = 1;
+        openInput.addEventListener("click", function (event) {
+          if (click == 1) {
+            event.target.parentElement.querySelector(
+              "#comment-input"
+            ).style.display = "initial";
+            click = 2;
+          } else if (click == 2) {
+            event.target.parentElement.querySelector(
+              "#comment-input"
+            ).style.display = "none";
+            click = 1;
+          }
+        });
+      });
+
+      // CODE TO OPEN & CLOSE ADD STORY PAGE
+
+      document.querySelector("#open-add-story").addEventListener("click", function () {
+          document.querySelector(".upload-story").style.scale = "1";
+        });
+
+      document.querySelector("#close-upload-story").addEventListener("click", function () {
+          document.querySelector(".upload-story").style.scale = "0";
+        });
+
+      // CODE TO OPEN & CLOSE MORE OPTIONS
+
+      document.querySelectorAll("#open-more-options").forEach(function (openInput) {
+          var click = 1;
+          openInput.addEventListener("click", function (event) {
+            if (click == 1) {
+              event.target.parentElement.querySelector(
+                ".more-option"
+              ).style.scale = "1";
+              click = 2;
+            } else if (click == 2) {
+              event.target.parentElement.querySelector(
+                ".more-option"
+              ).style.scale = "0";
+              click = 1;
+            }
+          });
+        });
+
+      //CODE FOR FULL VIEW OF STORY
+
+      document.querySelectorAll(".story").forEach(function (BigStory) {
+        BigStory.addEventListener("click", function () {
+          document.querySelector(".big-story").style.scale = "1";
+        });
+      });
+
+      // AXIOS CODE FOR LIKING STORY
+
+      async function like(event,storyId) {
+        var response = await axios.get(`/likeStory/${storyId}`);
+        // console.log(response.data.status)
+        if(response.data.status == "liked"){
+            event.target.style.color = "red"
+        }
+        else{
+            event.target.style.color = "white"
+        }
+      }
+
+      // CODE FOR OPEN DELETE STORY
+
+      document.querySelectorAll("#open-delete-story").forEach(function (DeleteStory) {
+          var click = 1;
+          DeleteStory.addEventListener("click", function (open) {
+            if (click == 1) {
+              open.target.parentElement.querySelector(
+                ".delete-story"
+              ).style.scale = 1;
+              click = 2;
+            } else if (click == 2) {
+              open.target.parentElement.querySelector(
+                ".delete-story"
+              ).style.scale = 0;
+              click = 1;
+            }
+          });
+        });
+    </script>
+  </body>
+</html>

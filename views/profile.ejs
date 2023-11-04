@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="main">
+        <div id="profile">
+            <div id="nav">
+                <div id="nav1">
+                    <i class="ri-lock-line"></i>
+                    <h1>
+                        <%= user.username %>
+                    </h1>
+                    <i class="ri-arrow-down-s-line"></i>
+                </div>
+                <div id="nav2">
+                    <a href="/createPost"><i class="ri-add-box-line"></i></a>
+                    <i id="open-more-options" class="ri-menu-line"></i>
+                </div>
+            </div>
+            <div id="profile-details">
+                <div id="details">
+                    <div id="details-1">
+                        <img src="<%= user.profilePic %>" alt="">
+                        <h1><%= user.fullName %></h1>
+                    </div>
+                    <div class="details-2">
+                        <div class="followers">
+                            <h1><%= user.follower.length %></h1>
+                            <h1>Followers</h1>
+                        </div>
+                        <div class="following">
+                            <h1><%= user.following.length %></h1>
+                            <h1>Following</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 id="bio"><%= user.bio %></h1>
+
+                <div id="details-3">
+                    <a href="/editProfile/<%= user._id %>"><button>edit profile</button></a>
+                    <button>share profile</button>
+                </div>
+
+                <div id="post-options">
+                    <div class="option">
+                        <i class="ri-layout-grid-fill"></i>
+                    </div>
+                    <div class="option">
+                        <i class="ri-account-box-line"></i>
+                    </div>
+                </div>
+
+                <div id="details-4">
+                    <% posts.forEach(function(post){ %>
+                        <% if(post.user.username == user.username){ %>
+                            <img src="<%= post.media %>" alt="">
+                            <%  } else{ %>
+                                <img style="display: none;" src="<%= post.media %>" alt="">
+                            <% } %>    
+                    <% }) %>
+                </div>
+            </div>
+            <div id="page-change">
+                <a href="/feed"><i class="ri-home-2-fill"></i></a>
+                <a href="/Search"><i class="ri-search-line"></i></a>
+                <a href="/createPost"><i class="ri-add-box-line"></i></a>
+                <a href="/profile"><img src="<%= user.profilePic %>" alt=""></a> 
+            </div>
+            <div id="more">
+                <div class="more-options">
+                    <i class="ri-settings-3-line"></i>
+                    <h1>Settings</h1>
+                </div>
+                <div class="more-options">
+                    <i class="ri-settings-3-line"></i>
+                    <h1>Your Activity</h1>
+                </div>
+                <div class="more-options">
+                    <i class="ri-settings-3-line"></i>
+                    <a href="/savedPosts"><h1>Saved Posts</h1></a>
+                </div>
+                <div class="more-options">
+                    <i class="ri-settings-3-line"></i>
+                    <h1>Account Privacy</h1>
+                </div>
+                <a href="/logout"><div class="more-options">
+                    <i class="ri-settings-3-line"></i>
+                    <h1>Logout</h1>
+                </div></a>
+            </div>
+        </div>
+    </div>
+<script>
+    var click = 1
+    document.querySelector("#open-more-options").addEventListener("click",function(){
+        if(click == 1){
+            document.querySelector("#more").style.height = "270px"
+            click = 2
+        }
+        else if(click == 2){
+            document.querySelector("#more").style.height = "0px"
+            click = 1
+        }
+    })
+</script>
+</body>
+
+</html>

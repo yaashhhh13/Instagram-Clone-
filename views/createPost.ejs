@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<style>
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    #main {
+        width: 100%;
+        height: 100%;
+        /* background-color: rgb(166, 107, 169); */
+        background: linear-gradient(to right, purple, red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .create-post {
+        position: relative;
+        width: 40%;
+        height: 100%;
+        background:linear-gradient(to right, red,rgb(123, 13, 123));
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        font-family: gilroy;
+    }
+
+    .create-post h1{
+        font-size: 40px;
+        text-transform: capitalize;
+        font-weight: 450;
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    .create-post form{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .create-post form input,button{
+        padding: 10px 30px;
+        text-align: center;
+        font-size: 30px;
+        text-transform: capitalize;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+    }
+
+    .create-post form button{
+        background-color: rgb(109, 139, 247);
+        background: linear-gradient(to right,rgb(47, 99, 123),rgb(73, 121, 43));
+        color: white;
+        border-radius: 30px;
+        padding: 10px 40px;
+    }
+
+    .create-post i{
+        position: absolute;
+        color: white;
+        font-size: 50px;
+        top: 1%;
+        right: 3%;
+        cursor: pointer;
+    }
+
+</style>
+
+<body>
+    <div id="main">
+        <div class="create-post">
+            <h1>create new post</h1>
+            <form action="/createPost" method="post">
+                <input type="text" name="media" placeholder="enter your media link">
+                <input type="text" name="caption" placeholder="enter your caption">
+                <button>submit</button>
+            </form>
+            <a href="/feed"><i class="ri-arrow-left-line"></i></a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Document</title>
+  </head>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    #main {
+      width: 100%;
+      height: 100%;
+      /* background-color: rgb(166, 107, 169); */
+      background: linear-gradient(to right, purple, red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    #edit {
+      width: 40%;
+      height: 100%;
+      background-color: black;
+      color: white;
+      font-family: gilroy;
+      /* overflow: hidden; */
+      overflow: auto;
+      position: relative;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+      justify-content: center;
+      text-align: center;
+      margin-top: 100px;
+      width: 100%;
+      gap: 20px;
+      padding-left: 50px;
+    }
+
+    form input {
+      padding: 10px 20px;
+      font-size: 20px;
+      width: 80%;
+      border-radius: 10px;
+    }
+
+    form button {
+      padding: 10px 30px;
+      background-color: rgb(44, 44, 231);
+      font-size: 30px;
+      border: none;
+      outline: none;
+      border-radius: 30px;
+      color: rgb(237, 235, 235);
+      flex-shrink: 0;
+      width: fit-content;
+      margin-left: -70px;
+      margin-top: 20px;
+      align-self: center;
+      cursor: pointer;
+    }
+
+    form h2{
+      align-self: flex-start;
+      text-transform: capitalize;
+      font-weight: 500;
+    }
+
+    #nav{
+      width: 100%;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding-left: 20px;
+      padding-top: 40px;
+    }
+
+    #nav i{
+      font-size: 40px;
+    }
+
+    #nav h1{
+      font-weight: 400;
+    }
+
+    a{
+      text-decoration: none;
+      color: white;
+    }
+  </style>
+  <body>
+    <div id="main">
+      <div id="edit">
+        <div id="nav">
+          <a href="/profile"><i class="ri-close-line"></i></a>
+          <h1>Edit Profile Details</h1>
+        </div>
+        <form action="/updateProfileDetails/<%= user._id %>" method="post">
+          <h2>Name</h2>
+          <input
+            type="text"
+            name="fullName"
+            placeholder="enter your new fullname"
+            value="<%= user.fullName %>"
+          />
+          <h2>Username</h2>
+          <input
+            type="text"
+            name="username"
+            placeholder="enter your new username"
+            value="<%= user.username %>"
+          />
+          <h2>profile Pic</h2>
+          <input
+            type="text"
+            name="profilePic"
+            placeholder="enter your new ProfilePic"
+            value="<%= user.profilePic %>"
+          />
+          <h2>bio</h2>
+          <input type="text" name="bio" placeholder="enter your new bio" value="<%= user.bio %>" />
+          <button>update Details</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

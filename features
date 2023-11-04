@@ -1,0 +1,68 @@
+how to make a app :-
+
+what we are creating ?
+what are the Features ? 
+no of Schema's ?
+
+CLONE OF INSTAGRAM
+
+
+FEATURES :-
+    
+    -like post
+    -story automatically delete after 24 hours 
+    -user can follow multiple user 
+    -user can see post of only followed user 
+    -user can also comment 
+    -user can like story
+    -like comment
+    -delete comment
+    -delete user
+    -profile page with only photos of loggedInUser
+
+
+
+Schema :-
+
+    -post 
+    -user
+    -story
+    -comment
+
+properties of Schema :-
+
+    post : {
+        media : (image/video)
+        caption
+        user
+        mediaType
+        likes
+        comments
+        createdAt
+    }
+
+    user : {
+        username,
+        profile pic ,
+        full name,
+        following,
+        followers,
+        bio
+    }
+
+    story : {
+        time,
+        media (image/video),
+        caption,
+        like,
+        user,
+    }
+
+    comment : {
+        text 
+        user,
+        likes,
+        time,
+        post,
+        replyOf: comment,   
+    }
