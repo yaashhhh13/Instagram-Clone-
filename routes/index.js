@@ -12,7 +12,7 @@ const commentModel = require("./comment.js");
 
 passport.use(new localStrategy(users.authenticate()));
 
-mongoose.connect("mongodb://0.0.0.0/instaClone-data").then(function(result){
+mongoose.connect("mongodb+srv://yashsen1007:ufzOGtjzwCOdjfFh@cluster0.dqlc5ja.mongodb.net/?retryWrites=true&w=majority").then(function(result){
   console.log("connected to database")
 }).catch(function(err){
   console.log(err)
