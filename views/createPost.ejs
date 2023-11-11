@@ -8,10 +8,18 @@
 </head>
 
 <style>
-        * {
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+* {
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
     }
 
     html,
@@ -24,10 +32,18 @@
         width: 100%;
         height: 100%;
         /* background-color: rgb(166, 107, 169); */
+        background: -webkit-gradient(linear, left top, right top, from(purple), to(red));
+        background: -o-linear-gradient(left, purple, red);
         background: linear-gradient(to right, purple, red);
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        align-items: center;
-        justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
     }
 
     ::-webkit-scrollbar {
@@ -38,12 +54,23 @@
         position: relative;
         width: 40%;
         height: 100%;
+        background:-webkit-gradient(linear, left top, right top, from(red),to(rgb(123, 13, 123)));
+        background:-o-linear-gradient(left, red,rgb(123, 13, 123));
         background:linear-gradient(to right, red,rgb(123, 13, 123));
         overflow: hidden;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
         font-family: gilroy;
     }
 
@@ -56,10 +83,19 @@
     }
 
     .create-post form{
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
         gap: 20px;
     }
 
@@ -75,6 +111,8 @@
 
     .create-post form button{
         background-color: rgb(109, 139, 247);
+        background: -webkit-gradient(linear,left top, right top,from(rgb(47, 99, 123)),to(rgb(73, 121, 43)));
+        background: -o-linear-gradient(left,rgb(47, 99, 123),rgb(73, 121, 43));
         background: linear-gradient(to right,rgb(47, 99, 123),rgb(73, 121, 43));
         color: white;
         border-radius: 30px;
@@ -90,6 +128,11 @@
         cursor: pointer;
     }
 
+    @media (max-width:800px) {
+        .create-post{
+        width: 100%;
+        }
+    }
 </style>
 
 <body>

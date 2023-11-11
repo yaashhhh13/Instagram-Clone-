@@ -16,10 +16,18 @@
     />
   </head>
   <style>
-    * {
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+* {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
     }
 
     html,
@@ -32,10 +40,18 @@
       width: 100%;
       height: 100%;
       /* background-color: rgb(166, 107, 169); */
+      background: -webkit-gradient(linear, left top, right top, from(purple), to(red));
+      background: -o-linear-gradient(left, purple, red);
       background: linear-gradient(to right, purple, red);
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
     }
 
     #register {
@@ -48,18 +64,22 @@
       position: relative;
     }
 
-    #nav{
+    #nav {
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      align-items: center;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
       margin-left: 210px;
       margin-top: 20px;
     }
 
-    #nav i{
+    #nav i {
       font-size: 30px;
     }
 
-    #register>h1{
+    #register > h1 {
       font-size: 40px;
       position: absolute;
       font-style: italic;
@@ -69,16 +89,21 @@
       left: 37%;
     }
 
-    #register form{
+    #register form {
       position: absolute;
       top: 23%;
       left: 20%;
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      flex-direction: column;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
       gap: 20px;
     }
 
-    #register form input{
+    #register form input {
       padding: 10px 10px;
       font-size: 25px;
       border-radius: 10px;
@@ -90,7 +115,7 @@
       text-transform: capitalize;
     }
 
-    #register form button{
+    #register form button {
       padding: 10px 30px;
       background-color: rgb(44, 44, 231);
       font-size: 30px;
@@ -99,49 +124,58 @@
       border-radius: 30px;
       margin-left: 100px;
       color: rgb(237, 235, 235);
-      flex-shrink: 0;
+      -ms-flex-negative: 0;
+          flex-shrink: 0;
     }
 
-    
-    .register-with-fb{
+    .register-with-fb {
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      align-items: center;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
       position: absolute;
       top: 76%;
       left: 27%;
       gap: 4px;
     }
 
-    .register-with-fb i{
+    .register-with-fb i {
       color: rgb(9, 114, 212);
       font-size: 40px;
     }
 
-    .register-with-fb h4{
+    .register-with-fb h4 {
       margin-top: 9px;
       color: rgb(10, 105, 194);
     }
 
-    #register hr{
+    #register hr {
       height: 1px;
       /* background-color: white; */
       margin-top: 720px;
     }
 
-
-    #go-to-login{
+    #go-to-login {
       position: absolute;
       top: 93%;
       left: 27%;
       text-transform: capitalize;
       font-size: 20px;
-      color: rgba(255, 255, 255, 0.600);
+      color: rgba(255, 255, 255, 0.6);
       cursor: pointer;
     }
 
-    #go-to-login span{
+    #go-to-login span {
       color: white;
       text-transform: none;
+    }
+
+    @media (max-width: 800px) {
+      #register {
+        width: 100%;
+      }
     }
   </style>
   <body>
@@ -179,8 +213,12 @@
           <i class="ri-facebook-circle-fill"></i>
           <h4>Register with Facebook</h4>
         </div>
-        <hr>
-        <a href="/login"><small id="go-to-login">Already have an account? <span>Sign in.</span></small></a>
+        <hr />
+        <a href="/login"
+          ><small id="go-to-login"
+            >Already have an account? <span>Sign in.</span></small
+          ></a
+        >
       </div>
     </div>
     <script
