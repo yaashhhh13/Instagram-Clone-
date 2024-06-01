@@ -287,6 +287,8 @@
           duration: 0.4,
         });
       }
+
+      // Code to search a user
     
       document.querySelector("#search-user").addEventListener("input",async function(event){
         var response = await axios.post("/searchUser",{

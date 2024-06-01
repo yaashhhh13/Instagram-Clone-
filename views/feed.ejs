@@ -90,99 +90,105 @@
                 class="ri-heart-3-line"
               ></i>
               <% } %> -->
-              <i id="story-like-btn" onclick="like(event,'<%= story._id %>')" class="ri-heart-3-fill"></i>
+              <i
+                id="story-like-btn"
+                onclick="like(event,'<%= story._id %>')"
+                class="ri-heart-3-fill"
+              ></i>
               <i class="ri-send-plane-fill"></i>
             </div>
           </div>
           <% }) %>
         </div>
         <div id="posts">
-          <% allPosts.forEach(function(post){ %>
-            <% if(post.user.follower.includes(currentUser._id)){ %>
-              <div class="post">
-                <div class="follow">
-                  <div class="user">
-                    <img src="<%= post.user.profilePic %>" alt="" />
-                    <h2><%= post.user.username %></h2>
-                  </div>
-                  <div class="more">
-                    <!-- <a href="/follow/<%= post.user._id %>">
+          <% allPosts.forEach(function(post){ %> <%
+          if(post.user.follower.includes(currentUser._id)){ %>
+          <div class="post">
+            <div class="follow">
+              <div class="user">
+                <img src="<%= post.user.profilePic %>" alt="" />
+                <h2><%= post.user.username %></h2>
+              </div>
+              <div class="more">
+                <!-- <a href="/follow/<%= post.user._id %>">
                       <i class="ri-user-shared-line"></i>
                     </a> -->
-                    <i id="open-more-options" class="ri-more-2-line"></i>
-                    <div class="more-option">
-                      <a href=""><h4>Delete Post</h4></a>
-                      <a href="/profile/<%= post.user._id %>"><h4>View Profile</h4></a>
-                      <a href="/savepost/<%= post._id %>"><h4>Save Post</h4></a>
-                    </div>
-                  </div>
-                </div>
-                <img src="<%= post.media %>" alt="" />
-                <div class="review">
-                  <div class="number">
-                    <% if(post.likes.includes(user._id)){ %>
-                    <a href="/like/<%= post._id %>"
-                      ><i style="color: red" class="ri-heart-3-fill"></i
-                    ></a>
-                    <% } else { %>
-                    <a href="/like/<%= post._id %>"
-                      ><i class="ri-heart-3-line"></i
-                    ></a>
-                    <% } %>
-                    <h3><%= post.likes.length %></h3>
-                  </div>
-                  <div class="caption">
-                    <h2><%= post.user.username %></h2>
-                    <h1><%= post.caption %></h1>
-                  </div>
-                  <div class="comment">
-                    <h4 id="add-comment">Add a comment</h4>
-                    <div class="comments-container">
-                      <% post.comments.forEach(function(comment){ %>
-                      <div class="comments">
-                        <div class="comment-profile">
-                          <img src="<%= comment.user.profilePic %>" alt="" />
-                        </div>
-                        <div class="comment-data">
-                          <h4><%= comment.user.username %></h4>
-                          <h3><%= comment.text %></h3>
-                          <small> <%= comment.createdAt.toLocaleString() %> </small>
-                        </div>
-                        <div class="comment-review">
-                          <a href=""><i class="ri-reply-line"></i></a>
-                          <a href="/likeComment/<%= comment._id %>"
-                            ><i class="ri-heart-line"></i
-                          ></a>
-                          <a href="/delete/<%= comment._id %>"
-                            ><i class="ri-delete-bin-7-fill"></i
-                          ></a>
-                        </div>
-                      </div>
-                      <% }) %>
-                      <form action="/addComment/<%= post._id %>" method="post">
-                        <input
-                          id="comment-input"
-                          type="text"
-                          name="comment"
-                          placeholder="write comment to <%= post.user.username %>"
-                        />
-                      </form>
-                    </div>
-                  </div>
+                <i id="open-more-options" class="ri-more-2-line"></i>
+                <div class="more-option">
+                  <a href=""><h4>Delete Post</h4></a>
+                  <a href="/profile/<%= post.user._id %>"
+                    ><h4>View Profile</h4></a
+                  >
+                  <a href="/savepost/<%= post._id %>"><h4>Save Post</h4></a>
                 </div>
               </div>
-            <% } else{ %>
-              <div class="nothing">
-                <p>no posts to show here as you have not followed anyone yet. go to the search page to follow users</p>
+            </div>
+            <img src="<%= post.media %>" alt="" />
+            <div class="review">
+              <div class="number">
+                <% if(post.likes.includes(user._id)){ %>
+                <a href="/like/<%= post._id %>"
+                  ><i style="color: red" class="ri-heart-3-fill"></i
+                ></a>
+                <% } else { %>
+                <a href="/like/<%= post._id %>"
+                  ><i class="ri-heart-3-line"></i
+                ></a>
+                <% } %>
+                <h3><%= post.likes.length %></h3>
               </div>
-            <%  } %>
-          <% }) %>
+              <div class="caption">
+                <h2><%= post.user.username %></h2>
+                <h1><%= post.caption %></h1>
+              </div>
+              <div class="comment">
+                <h4 id="add-comment">Add a comment</h4>
+                <div class="comments-container">
+                  <% post.comments.forEach(function(comment){ %>
+                  <div class="comments">
+                    <div class="comment-profile">
+                      <img src="<%= comment.user.profilePic %>" alt="" />
+                    </div>
+                    <div class="comment-data">
+                      <h4><%= comment.user.username %></h4>
+                      <h3><%= comment.text %></h3>
+                      <small> <%= comment.createdAt.toLocaleString() %> </small>
+                    </div>
+                    <div class="comment-review">
+                      <a href="/delete/<%= comment._id %>"
+                        ><i class="ri-delete-bin-7-fill"></i
+                      ></a>
+                    </div>
+                  </div>
+                  <% }) %>
+                  <form action="/addComment/<%= post._id %>" method="post">
+                    <input
+                      id="comment-input"
+                      type="text"
+                      name="comment"
+                      placeholder="write comment to <%= post.user.username %>"
+                    />
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } else{ %>
+          <div class="nothing">
+            <p>
+              no posts to show here as you have not followed anyone yet. go to
+              the search page to follow users
+            </p>
+          </div>
+          <% } %> <% }) %>
         </div>
         <div id="page-change">
           <a href="/feed"><i class="ri-home-2-fill"></i></a>
           <a href="/Search"><i class="ri-search-line"></i></a>
           <a href="/createPost"><i class="ri-add-box-line"></i></a>
-          <a href="/profile"><img src="<%= currentUser.profilePic %>" alt=""></a> 
+          <a href="/profile"
+            ><img src="<%= currentUser.profilePic %>" alt=""
+          /></a>
         </div>
       </div>
     </div>
@@ -219,17 +225,23 @@
 
       // CODE TO OPEN & CLOSE ADD STORY PAGE
 
-      document.querySelector("#open-add-story").addEventListener("click", function () {
+      document
+        .querySelector("#open-add-story")
+        .addEventListener("click", function () {
           document.querySelector(".upload-story").style.scale = "1";
         });
 
-      document.querySelector("#close-upload-story").addEventListener("click", function () {
+      document
+        .querySelector("#close-upload-story")
+        .addEventListener("click", function () {
           document.querySelector(".upload-story").style.scale = "0";
         });
 
       // CODE TO OPEN & CLOSE MORE OPTIONS
 
-      document.querySelectorAll("#open-more-options").forEach(function (openInput) {
+      document
+        .querySelectorAll("#open-more-options")
+        .forEach(function (openInput) {
           var click = 1;
           openInput.addEventListener("click", function (event) {
             if (click == 1) {
@@ -256,20 +268,21 @@
 
       // AXIOS CODE FOR LIKING STORY
 
-      async function like(event,storyId) {
+      async function like(event, storyId) {
         var response = await axios.get(`/likeStory/${storyId}`);
         // console.log(response.data.status)
-        if(response.data.status == "liked"){
-            event.target.style.color = "red"
-        }
-        else{
-            event.target.style.color = "white"
+        if (response.data.status == "liked") {
+          event.target.style.color = "red";
+        } else {
+          event.target.style.color = "white";
         }
       }
 
       // CODE FOR OPEN DELETE STORY
 
-      document.querySelectorAll("#open-delete-story").forEach(function (DeleteStory) {
+      document
+        .querySelectorAll("#open-delete-story")
+        .forEach(function (DeleteStory) {
           var click = 1;
           DeleteStory.addEventListener("click", function (open) {
             if (click == 1) {
