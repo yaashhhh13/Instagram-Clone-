@@ -8,189 +8,87 @@
       rel="stylesheet"
     />
     <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
   </head>
 
-  <style>
-/*
-* Prefixed by https://autoprefixer.github.io
-* PostCSS: v8.4.14,
-* Autoprefixer: v10.4.7
-* Browsers: last 4 version
-*/
-
-* {
-      margin: 0;
-      padding: 0;
-      -webkit-box-sizing: border-box;
-              box-sizing: border-box;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-    }
-
-    #main {
-      width: 100%;
-      height: 100%;
-      /* background-color: rgb(166, 107, 169); */
-      background: -webkit-gradient(linear, left top, right top, from(purple), to(red));
-      background: -o-linear-gradient(left, purple, red);
-      background: linear-gradient(to right, purple, red);
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-          -ms-flex-align: center;
-              align-items: center;
-      -webkit-box-pack: center;
-          -ms-flex-pack: center;
-              justify-content: center;
-    }
-
-    ::-webkit-scrollbar {
-      display: none;
-    }
-
-    #edit {
-      width: 40%;
-      height: 100%;
-      background-color: black;
-      color: white;
-      font-family: gilroy;
-      /* overflow: hidden; */
-      overflow: auto;
-      position: relative;
-    }
-
-    form {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-          -ms-flex-direction: column;
-              flex-direction: column;
-      -webkit-box-align: left;
-          -ms-flex-align: left;
-              align-items: left;
-      -webkit-box-pack: center;
-          -ms-flex-pack: center;
-              justify-content: center;
-      text-align: center;
-      margin-top: 100px;
-      width: 100%;
-      gap: 20px;
-      padding-left: 50px;
-    }
-
-    form input {
-      padding: 10px 20px;
-      font-size: 20px;
-      width: 80%;
-      border-radius: 10px;
-    }
-
-    form button {
-      padding: 10px 30px;
-      background-color: rgb(44, 44, 231);
-      font-size: 30px;
-      border: none;
-      outline: none;
-      border-radius: 30px;
-      color: rgb(237, 235, 235);
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
-      width: -webkit-fit-content;
-      width: -moz-fit-content;
-      width: fit-content;
-      margin-left: -70px;
-      margin-top: 20px;
-      -ms-flex-item-align: center;
-          -ms-grid-row-align: center;
-          align-self: center;
-      cursor: pointer;
-    }
-
-    form h2 {
-      -ms-flex-item-align: start;
-          align-self: flex-start;
-      text-transform: capitalize;
-      font-weight: 500;
-    }
-
-    #nav {
-      width: 100%;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      gap: 10px;
-      -webkit-box-align: center;
-          -ms-flex-align: center;
-              align-items: center;
-      padding-left: 20px;
-      padding-top: 40px;
-    }
-
-    #nav i {
-      font-size: 40px;
-    }
-
-    #nav h1 {
-      font-weight: 400;
-    }
-
-    a {
-      text-decoration: none;
-      color: white;
-    }
-
-    @media (max-width: 800px) {
-      #edit {
-        width: 100%;
-      }
-    }
-  </style>
   <body>
-    <div id="main">
-      <div id="edit">
-        <div id="nav">
-          <a href="/profile"><i class="ri-close-line"></i></a>
-          <h1>Edit Profile Details</h1>
+    <div
+      id="loader"
+      class="fixed inset-0 flex flex-col justify-center items-center bg-white z-50"
+    >
+      <div class="loader"></div>
+      <h1 class="text-3xl mt-2">Loading...</h1>
+    </div>
+    <div class="w-full h-screen flex md:flex-row flex-col">
+      <div class="md:w-1/6 w-full">
+        <%- include('partials/navigation.ejs') %>
+      </div>
+      <div class="w-full h-full p-8">
+        <h1 class="text-3xl md:text-5xl font-bold">
+          Edit your profile details
+        </h1>
+        <div class="mt-0 md:mt-12 ml-4 md:ml-12">
+          <form
+            class="w-full"
+            action="/updateProfileDetails/<%= user._id %>"
+            method="post"
+          >
+            <div class="w-full flex md:flex-row flex-col items-center mt-12">
+              <div
+                class="w-full md:w-2/5 flex flex-col items-center justify-center"
+              >
+                <img
+                  src="<%= user.profilePic %>"
+                  class="w-48 md:w-60 h-48 md:h-60 rounded-full"
+                />
+                <div>
+                  <input
+                    placeholder="enter new profile url"
+                    class="w-full mt-2 rounded-xl outline-none border p-3 bg-transparent"
+                  />
+                </div>
+              </div>
+              <div class="w-full md:w-3/5">
+                <h1 class="text-2xl font-bold">Name</h1>
+                <input
+                  placeholder="<%= user.fullName %>"
+                  class="w-3/4 mt-2 rounded-xl outline-none border p-3 bg-transparent"
+                />
+                <h1 class="text-2xl font-bold mt-4">Bio</h1>
+                <input
+                  placeholder="<%= user.bio %>"
+                  class="w-3/4 mt-2 rounded-xl outline-none border p-3 bg-transparent"
+                />
+              </div>
+            </div>
+            <div class="w-full mt-8 flex items-center justify-center">
+              <button
+                type="submit"
+                class="bg-blue-500 px-2 py-1 text-white font-semibold text-xl rounded block text-center sm:inline-block block"
+              >
+                Update Details
+              </button>
+            </div>
+          </form>
         </div>
-        <form action="/updateProfileDetails/<%= user._id %>" method="post">
-          <h2>Name</h2>
-          <input
-            type="text"
-            name="fullName"
-            placeholder="enter your new fullname"
-            value="<%= user.fullName %>"
-          />
-          <h2>Username</h2>
-          <input
-            type="text"
-            name="username"
-            placeholder="enter your new username"
-            value="<%= user.username %>"
-          />
-          <h2>profile Pic</h2>
-          <input
-            type="text"
-            name="profilePic"
-            placeholder="enter your new ProfilePic"
-            value="<%= user.profilePic %>"
-          />
-          <h2>bio</h2>
-          <input
-            type="text"
-            name="bio"
-            placeholder="enter your new bio"
-            value="<%= user.bio %>"
-          />
-          <button>update Details</button>
-        </form>
       </div>
     </div>
+    <script>
+      // loader
+      window.addEventListener("load", function () {
+        document.getElementById("loader").style.display = "none";
+      });
+    </script>
   </body>
 </html>

@@ -5,226 +5,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bootstrap demo</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
   </head>
-  <style>
-/*
-* Prefixed by https://autoprefixer.github.io
-* PostCSS: v8.4.14,
-* Autoprefixer: v10.4.7
-* Browsers: last 4 version
-*/
-
-* {
-      margin: 0;
-      padding: 0;
-      -webkit-box-sizing: border-box;
-              box-sizing: border-box;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-    }
-
-    #main {
-      width: 100%;
-      height: 100%;
-      /* background-color: rgb(166, 107, 169); */
-      background: -webkit-gradient(linear, left top, right top, from(purple), to(red));
-      background: -o-linear-gradient(left, purple, red);
-      background: linear-gradient(to right, purple, red);
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-          -ms-flex-align: center;
-              align-items: center;
-      -webkit-box-pack: center;
-          -ms-flex-pack: center;
-              justify-content: center;
-    }
-
-    #register {
-      width: 45%;
-      height: 100%;
-      background-color: black;
-      color: white;
-      font-family: gilroy;
-      /* overflow: hidden; */
-      position: relative;
-    }
-
-    #nav {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-          -ms-flex-align: center;
-              align-items: center;
-      margin-left: 210px;
-      margin-top: 20px;
-    }
-
-    #nav i {
-      font-size: 30px;
-    }
-
-    #register > h1 {
-      font-size: 40px;
-      position: absolute;
-      font-style: italic;
-      /* font-family: cursive; */
-      font-family: serif;
-      top: 14%;
-      left: 37%;
-    }
-
-    #register form {
-      position: absolute;
-      top: 23%;
-      left: 20%;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-          -ms-flex-direction: column;
-              flex-direction: column;
-      gap: 20px;
-    }
-
-    #register form input {
-      padding: 10px 10px;
-      font-size: 25px;
-      border-radius: 10px;
-      border: none;
-      outline: none;
-      background-color: rgb(237, 235, 235);
-      width: 140%;
-      text-align: center;
-      text-transform: capitalize;
-    }
-
-    #register form button {
-      padding: 10px 30px;
-      background-color: rgb(44, 44, 231);
-      font-size: 30px;
-      border: none;
-      outline: none;
-      border-radius: 30px;
-      margin-left: 100px;
-      color: rgb(237, 235, 235);
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
-    }
-
-    .register-with-fb {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-          -ms-flex-align: center;
-              align-items: center;
-      position: absolute;
-      top: 76%;
-      left: 27%;
-      gap: 4px;
-    }
-
-    .register-with-fb i {
-      color: rgb(9, 114, 212);
-      font-size: 40px;
-    }
-
-    .register-with-fb h4 {
-      margin-top: 9px;
-      color: rgb(10, 105, 194);
-    }
-
-    #register hr {
-      height: 1px;
-      /* background-color: white; */
-      margin-top: 720px;
-    }
-
-    #go-to-login {
-      position: absolute;
-      top: 93%;
-      left: 27%;
-      text-transform: capitalize;
-      font-size: 20px;
-      color: rgba(255, 255, 255, 0.6);
-      cursor: pointer;
-    }
-
-    #go-to-login span {
-      color: white;
-      text-transform: none;
-    }
-
-    @media (max-width: 800px) {
-      #register {
-        width: 100%;
-      }
-    }
-  </style>
   <body>
+    <div
+      id="loader"
+      class="fixed inset-0 flex flex-col justify-center items-center bg-white z-50"
+    >
+      <div class="loader"></div>
+      <h1 class="text-3xl mt-2">Loading...</h1>
+    </div>
     <div id="main">
-      <div id="register">
-        <div id="nav">
-          <h4>English (United States)<i class="ri-arrow-down-s-line"></i></h4>
+      <div
+        class="w-full h-screen flex flex-col items-center justify-center text-center"
+      >
+        <div class="lg:w-1/4 md:w-1/2 sm:w-full lg:border p-4">
+          <img
+            class="h-10 my-2"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/150px-Instagram_logo.svg.png"
+            alt="instagram"
+          />
+          <h1 class="text-xl opacity-80 font-semibold mt-4">
+            Sign up to see photos and videos from your friends.
+          </h1>
+          <form class="w-full mt-2" method="post" action="/register">
+            <input
+              class="w-full p-2 mt-2 border outline-none"
+              placeholder="username"
+              required
+              name="username"
+            />
+            <input
+              class="w-full p-2 mt-2 border outline-none"
+              placeholder="profilePic url"
+              required
+              name="profilePic"
+            />
+            <input
+              class="w-full p-2 mt-2 border outline-none"
+              placeholder="fullName"
+              required
+              name="fullName"
+            />
+            <input
+              class="w-full p-2 mt-2 border outline-none"
+              placeholder="bio"
+              required
+              name="bio"
+            />
+            <input
+              class="w-full p-2 mt-2 border outline-none"
+              placeholder="password"
+              type="password"
+              required
+              name="password"
+            />
+            <h1 class="mt-3">
+              By signing up, you agree to our Terms , Privacy Policy and Cookies
+              Policy .
+            </h1>
+            <button
+              class="w-full rounded-xl bg-blue-500 text-white text-center py-2 text-xl mt-3"
+            >
+              signup
+            </button>
+          </form>
         </div>
-        <h1>Instagram</h1>
-        <form action="/register" method="post">
-          <input
-            type="text"
-            name="username"
-            placeholder="enter your username"
-          />
-          <input
-            type="text"
-            name="profilePic"
-            placeholder="enter your profilePic"
-          />
-          <input
-            type="text"
-            name="fullName"
-            placeholder="enter your fullName"
-          />
-          <input type="text" name="bio" placeholder="enter your bio" />
-          <input
-            type="password"
-            name="password"
-            placeholder="enter your password"
-          />
-          <button>Submit</button>
-        </form>
-        <div class="register-with-fb">
-          <i class="ri-facebook-circle-fill"></i>
-          <h4>Register with Facebook</h4>
-        </div>
-        <hr />
-        <a href="/login"
-          ><small id="go-to-login"
-            >Already have an account? <span>Sign in.</span></small
-          ></a
+        <div
+          class="lg:w-1/4 md:w-1/2 sm:w-full h-[10%] lg:border py-4 px-12 mt-4"
         >
+          <h1>
+            have an account?
+            <a class="text-blue-500" href="/login">Login</a>
+          </h1>
+        </div>
+        <div
+          class="md:w-3/4 sm:w-full text-md mt-4 grid md:grid-cols-10 grid-cols-5 max-[650px]:gap-2"
+        >
+          <h1>Meta</h1>
+          <h1>About</h1>
+          <h1>Blog</h1>
+          <h1>Jobs</h1>
+          <h1>Help</h1>
+          <h1>API</h1>
+          <h1>Privacy</h1>
+          <h1>Terms</h1>
+          <h1>Locations</h1>
+          <h1>Threads</h1>
+        </div>
       </div>
     </div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
+
+    <script>
+      // LOADER
+      window.addEventListener("load", function () {
+        document.getElementById("loader").style.display = "none";
+      });
+    </script>
   </body>
 </html>

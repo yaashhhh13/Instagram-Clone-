@@ -1,15 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <form action="/createPost" method="post">
-        <input type="text" name="media" placeholder="enter image link">
-        <input type="text" name="caption" placeholder="enter your caption">
-        <input type="submit">
-    </form>
-</body>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body>
+    <div
+      id="loader"
+      class="fixed inset-0 flex flex-col justify-center items-center bg-white z-50"
+    >
+      <div class="loader"></div>
+      <h1 class="text-3xl mt-2">Loading...</h1>
+    </div>
+    <div class="w-full h-screen flex md:flex-row flex-col">
+      <div class="md:w-1/6 w-full">
+        <%- include('partials/navigation.ejs') %>
+      </div>
+      <div class="w-full md:w-3/4 flex flex-col items-center justify-center">
+        <div class="w-full flex flex-col h-full relative overflow-hidden">
+          <div
+            class="w-full h-full relative overflow-hidden flex items-center justify-center"
+          >
+            <div
+              id="options"
+              class="w-full h-full flex flex-col items-center justify-center absolute top-[0%] left-0 ease-linear duration-200"
+            >
+              <p class="mb-4 text-3xl">Choose what you want to create</p>
+              <div class="flex gap-2 ease-linear duration-200">
+                <h1
+                  onclick="`${handleCreatePost()}`"
+                  class="text-3xl px-3 py-2 border border-black rounded-3xl cursor-pointer"
+                >
+                  Create Post
+                </h1>
+                <h1
+                  onclick="`${handleCreateStory()}`"
+                  class="text-3xl px-3 py-2 border border-black rounded-3xl cursor-pointer"
+                >
+                  Create Story
+                </h1>
+              </div>
+            </div>
+            <div
+              id="create-post-form-container"
+              class="w-full h-full flex flex-col items-center justify-center absolute top-[100%] left-0 ease-linear duration-200"
+            >
+              <div class="font-[sans-serif] px-4">
+                <div
+                  class="min-h-screen flex fle-col items-center justify-center py-6 px-4"
+                >
+                  <div
+                    class="grid md:grid-cols-2 items-center gap-10 max-w-6xl w-full"
+                  >
+                    <div>
+                      <h2
+                        class="lg:text-5xl text-4xl font-extrabold lg:leading-[55px] text-gray-800"
+                      >
+                        Seamless Post Your Images Through their Link
+                      </h2>
+                      <p class="text-sm mt-6 text-gray-800">
+                        Immerse yourself in a hassle-free posting journey with
+                        our intuitively designed create post form.
+                      </p>
+                      <p class="text-sm mt-6 text-gray-800">
+                        Or Create a Story
+                        <a
+                          onclick="`${handleCreateStory()}`"
+                          class="text-blue-600 font-semibold hover:underline ml-1"
+                          >Click here</a
+                        >
+                      </p>
+                    </div>
+
+                    <form
+                      action="/createPost"
+                      method="post"
+                      class="max-w-md md:ml-auto w-full"
+                    >
+                      <h3 class="text-gray-800 text-3xl font-extrabold mb-8">
+                        Create Post
+                      </h3>
+
+                      <div class="space-y-4">
+                        <div>
+                          <input
+                            type="text"
+                            name="media"
+                            required
+                            class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3.5 rounded-md outline-blue-600 focus:bg-transparent"
+                            placeholder="enter image link"
+                          />
+                        </div>
+                        <div>
+                          <input
+                            type="text"
+                            name="caption"
+                            placeholder="enter your caption"
+                            required
+                            class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3.5 rounded-md outline-blue-600 focus:bg-transparent"
+                            placeholder="Password"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="!mt-8">
+                        <button
+                          type="submit"
+                          class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+                        >
+                          Create Post
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              id="create-story-form-container"
+              class="w-full h-full flex flex-col items-center justify-center absolute top-[100%] left-0 ease-linear duration-200"
+            >
+              <div class="font-[sans-serif] px-4">
+                <div
+                  class="min-h-screen flex fle-col items-center justify-center py-6 px-4"
+                >
+                  <div
+                    class="grid md:grid-cols-2 items-center gap-10 max-w-6xl w-full"
+                  >
+                    <div>
+                      <h2
+                        class="lg:text-5xl text-4xl font-extrabold lg:leading-[55px] text-gray-800"
+                      >
+                        Seamless Post Your Images Through their Link
+                      </h2>
+                      <p class="text-sm mt-6 text-gray-800">
+                        Immerse yourself in a hassle-free posting journey with
+                        our intuitively designed create post form.
+                      </p>
+                      <p class="text-sm mt-6 text-gray-800">
+                        Or Create a Post
+                        <a
+                          onclick="`${handleCreatePost()}`"
+                          class="text-blue-600 font-semibold hover:underline ml-1"
+                          >Click here</a
+                        >
+                      </p>
+                    </div>
+
+                    <form
+                      action="/createStory"
+                      method="post"
+                      class="max-w-md md:ml-auto w-full"
+                    >
+                      <h3 class="text-gray-800 text-3xl font-extrabold mb-8">
+                        Create Story
+                      </h3>
+
+                      <div class="space-y-4">
+                        <div>
+                          <input
+                            type="text"
+                            name="media"
+                            required
+                            class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3.5 rounded-md outline-blue-600 focus:bg-transparent"
+                            placeholder="enter image link"
+                          />
+                        </div>
+                        <div>
+                          <input
+                            type="text"
+                            name="caption"
+                            placeholder="enter your caption"
+                            required
+                            class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3.5 rounded-md outline-blue-600 focus:bg-transparent"
+                            placeholder="Password"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="!mt-8">
+                        <button
+                          type="submit"
+                          class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+                        >
+                          Create Story
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // LOADER
+      window.addEventListener("load", function () {
+        document.getElementById("loader").style.display = "none";
+      });
+
+      // code to view create post form
+
+      const handleCreatePost = () => {
+        document.querySelector("#create-story-form-container").style.top =
+          "100%";
+        document.querySelector("#options").style.top = "-100%";
+        document.querySelector("#create-post-form-container").style.top = "0%";
+      };
+
+      // code to view create story form
+      const handleCreateStory = () => {
+        document.querySelector("#create-post-form-container").style.top =
+          "100%";
+        document.querySelector("#options").style.top = "-100%";
+        document.querySelector("#create-story-form-container").style.top = "0%";
+      };
+    </script>
+  </body>
 </html>

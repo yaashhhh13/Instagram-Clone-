@@ -1,118 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="/stylesheets/profile.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="/stylesheets/profile.css" /> -->
     <title>Document</title>
-</head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
 
-<body>
-
-    <div id="main">
-        <div id="profile">
-            <div id="nav">
-                <div id="nav1">
-                    <i class="ri-lock-line"></i>
-                    <h1>
-                        <%= user.username %>
-                    </h1>
-                    <i class="ri-arrow-down-s-line"></i>
-                </div>
-                <div id="nav2">
-                    <a href="/createPost"><i class="ri-add-box-line"></i></a>
-                    <i id="open-more-options" class="ri-menu-line"></i>
-                </div>
-            </div>
-            <div id="profile-details">
-                <div id="details">
-                    <div id="details-1">
-                        <img src="<%= user.profilePic %>" alt="">
-                        <h1><%= user.fullName %></h1>
-                    </div>
-                    <div class="details-2">
-                        <div class="followers">
-                            <h1><%= user.follower.length %></h1>
-                            <h1>Followers</h1>
-                        </div>
-                        <div class="following">
-                            <h1><%= user.following.length %></h1>
-                            <h1>Following</h1>
-                        </div>
-                    </div>
-                </div>
-
-                <h1 id="bio"><%= user.bio %></h1>
-
-                <div id="details-3">
-                    <a href="/editProfile/<%= user._id %>"><button>edit profile</button></a>
-                    <button>share profile</button>
-                </div>
-
-                <div id="post-options">
-                    <div class="option">
-                        <i class="ri-layout-grid-fill"></i>
-                    </div>
-                    <div class="option">
-                        <i class="ri-account-box-line"></i>
-                    </div>
-                </div>
-
-                <div id="details-4">
-                    <% posts.forEach(function(post){ %>
-                        <% if(post.user.username == user.username){ %>
-                            <img src="<%= post.media %>" alt="">
-                            <%  } else{ %>
-                                <img style="display: none;" src="<%= post.media %>" alt="">
-                            <% } %>    
-                    <% }) %>
-                </div>
-            </div>
-            <div id="page-change">
-                <a href="/feed"><i class="ri-home-2-fill"></i></a>
-                <a href="/Search"><i class="ri-search-line"></i></a>
-                <a href="/createPost"><i class="ri-add-box-line"></i></a>
-                <a href="/profile"><img src="<%= user.profilePic %>" alt=""></a> 
-            </div>
-            <div id="more">
-                <div class="more-options">
-                    <i class="ri-settings-3-line"></i>
-                    <h1>Settings</h1>
-                </div>
-                <div class="more-options">
-                    <i class="ri-settings-3-line"></i>
-                    <h1>Your Activity</h1>
-                </div>
-                <div class="more-options">
-                    <i class="ri-settings-3-line"></i>
-                    <a href="/savedPosts"><h1>Saved Posts</h1></a>
-                </div>
-                <div class="more-options">
-                    <i class="ri-settings-3-line"></i>
-                    <h1>Account Privacy</h1>
-                </div>
-                <a href="/logout"><div class="more-options">
-                    <i class="ri-settings-3-line"></i>
-                    <h1>Logout</h1>
-                </div></a>
-            </div>
-        </div>
+  <body>
+    <div
+      id="loader"
+      class="fixed inset-0 flex flex-col justify-center items-center bg-white z-50"
+    >
+      <div class="loader"></div>
+      <h1 class="text-3xl mt-2">Loading...</h1>
     </div>
-<script>
-    var click = 1
-    document.querySelector("#open-more-options").addEventListener("click",function(){
-        if(click == 1){
-            document.querySelector("#more").style.height = "270px"
-            click = 2
-        }
-        else if(click == 2){
-            document.querySelector("#more").style.height = "0px"
-            click = 1
-        }
-    })
-</script>
-</body>
+    <div class="main w-full h-screen flex md:flex-row flex-col">
+      <div class="md:w-1/6 w-full flex items-center">
+        <%- include('partials/navigation.ejs') %>
+        <div class="flex items-center md:hidden pr-4 gap-2">
+          <a href="/logout"
+            ><div
+              id="mobile-profile-logout-link"
+              class="w-full h-full text-xl hidden"
+            >
+              Logout
+            </div></a
+          >
+          <i
+            id="mobile-setting-btn"
+            class="ri-settings-2-line"
+            style="font-size: 25px; cursor: pointer"
+          ></i>
+        </div>
+        <script>
+          var click = 1;
+          document
+            .querySelector("#mobile-setting-btn")
+            .addEventListener("click", (open) => {
+              if (click == 1) {
+                document.querySelector(
+                  "#mobile-profile-logout-link"
+                ).style.display = "initial";
+                click = 2;
+              } else if (click == 2) {
+                document.querySelector(
+                  "#mobile-profile-logout-link"
+                ).style.display = "none";
+                click = 1;
+              }
+            });
+        </script>
+      </div>
+      <div class="w-full h-full overflow-auto flex flex-col items-center">
+        <div class="bg-gray-100 w-full h-full bg-opacity-25">
+          <div class="w-full lg:w-8/12 lg:mx-auto mb-8">
+            <div
+              class="w-full flex items-center justify-around gap-4 md:gap-12 py-0 sm:py-4 px-4 md:px-0"
+            >
+              <div>
+                <img
+                  src="<%= user.profilePic %>"
+                  class="w-20 sm:w-40 md:w-60 h-20 sm:h-40 md:h-60 rounded-full"
+                />
+              </div>
+              <div>
+                <div>
+                  <div class="flex items-center gap-3 mt-2 sm:mt-4">
+                    <h1 class="text-lg md:text-xl"><%= user.username %></h1>
+                    <a href="/editProfile/<%= user._id %>"
+                      ><h1
+                        class="px-2 py-1 text-white font-semibold rounded-md text-xl bg-blue-500"
+                      >
+                        edit profile
+                      </h1></a
+                    >
+                  </div>
+                  <div class="mt-2 sm:mt-4">
+                    <h1 class="text-lg md:text-xl font-semibold">
+                      <%= user.fullName %>
+                    </h1>
+                    <h1 class="text-lg md:text-xl"><%= user.bio %></h1>
+                  </div>
+                  <div class="flex gap-4 md:gap-8 lg:gap-16 mt-2 sm:mt-4">
+                    <h1 class="text-lg md:text-xl flex flex-col text-center">
+                      <span class="font-semibold">Followers</span><%=
+                      user.follower.length %>
+                    </h1>
+                    <h1 class="text-lg md:text-xl flex flex-col text-center">
+                      <span class="font-semibold">Following</span><%=
+                      user.following.length %>
+                    </h1>
+                    <h1 class="text-lg md:text-xl flex flex-col text-center">
+                      <span class="font-semibold">Posts</span> 3
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <!-- posts -->
+            <div class="px-px md:px-3">
+              <!-- insta freatures -->
+              <ul
+                class="flex items-center justify-around md:justify-center space-x-12 uppercase tracking-widest font-semibold text-xs text-gray-600 border-t"
+              >
+                <!-- posts tab is active -->
+                <li
+                  class="md:border-t md:border-gray-700 md:-mt-px md:text-gray-700"
+                >
+                  <a class="inline-block p-3" href="#">
+                    <i class="fas fa-th-large text-xl md:text-xs"></i>
+                    <span class="hidden md:inline">post</span>
+                  </a>
+                </li>
+                `
+              </ul>
+              <!-- flexbox grid -->
+              <div
+                class="grid gap-3 grid-cols-2 lg:grid-cols-3 gap-3 px-4 md:px-2 lg:px-0 -mx-px md:-mx-3"
+              >
+                <!-- column -->
+                <% posts.forEach((post) => { %> <% if(post.user.username ==
+                user.username){ %>
+                <div class="w-full h-60 p-px md:px-3 mt-2">
+                  <!-- post 1-->
+                  <a href="#">
+                    <article
+                      class="post bg-gray-100 text-white relative pb-full md:mb-6"
+                    >
+                      <!-- post images-->
+                      <img
+                        class="w-full h-80 object-cover"
+                        src="<%= post.media %>"
+                        alt="image"
+                      />
+
+                      <i class="fas fa-square absolute right-0 top-0 m-1"></i>
+                      <!-- overlay-->
+                      <div
+                        class="overlay bg-gray-800 bg-opacity-25 w-full h-full hidden"
+                      >
+                        <div
+                          class="flex justify-center items-center space-x-4 h-full"
+                        >
+                          <span class="p-2">
+                            <i class="fas fa-heart"></i>
+                            412K
+                          </span>
+
+                          <span class="p-2">
+                            <i class="fas fa-comment"></i>
+                            2,909
+                          </span>
+                        </div>
+                      </div>
+                    </article>
+                  </a>
+                </div>
+                <% } %> <% }) %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // loader
+      window.addEventListener("load", function () {
+        document.getElementById("loader").style.display = "none";
+      });
+
+      // code to open more options
+
+      var click = 1;
+      document
+        .querySelector("#open-more-options")
+        .addEventListener("click", function () {
+          if (click == 1) {
+            document.querySelector("#more").style.height = "270px";
+            click = 2;
+          } else if (click == 2) {
+            document.querySelector("#more").style.height = "0px";
+            click = 1;
+          }
+        });
+    </script>
+  </body>
 </html>

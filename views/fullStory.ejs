@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: "#da373d",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    html,
+    body {
+      position: relative;
+      height: 100%;
+    }
+
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 70%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+  <body>
+    <div
+      id="loader"
+      class="fixed inset-0 flex flex-col justify-center items-center bg-white z-50"
+    >
+      <div class="loader"></div>
+      <h1 class="text-3xl mt-2">Loading...</h1>
+    </div>
+    <div class="w-full h-screen flex flex-col">
+      <div class="w-full flex items-center justify-start px-4 md:px-12 mt-8">
+        <div class="flex flex-col text-center">
+          <a href="/feed"
+            ><img
+              class="h-10 my-2"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/150px-Instagram_logo.svg.png"
+              alt="instagram"
+          /></a>
+          <h1 class="text-3xl">Watch Stories in full view</h1>
+        </div>
+      </div>
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <% stories.forEach((story) => { %>
+          <div class="swiper-slide w-80 rounded-xl relative flex flex-col p-3">
+            <div class="w-full flex items-center justify-between mt-2">
+              <h1 class="text-xl"><%= story.user.fullName %></h1>
+              <div class="relative">
+                <a href="/deleteStory/<%= story._id %>">
+                  <h1 id="delete-link" class="hidden text-md md:text-xl">
+                    Delete
+                  </h1></a
+                >
+                <i
+                  id="delete-icon"
+                  class="ri-more-2-fill"
+                  style="font-size: 20px; cursor: pointer"
+                ></i>
+              </div>
+            </div>
+            <img src="<%= story.media %>" class="mt-2" />
+            <div class="w-full flex items-center justify-start">
+              <i
+                id="story-like-btn"
+                onclick="like(event,'<%= story._id %>')"
+                class="ri-heart-3-fill"
+                style="
+                  font-size: 30px;
+                  position: relative;
+                  z-index: 999;
+                  cursor: pointer;
+                "
+              ></i>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"
+      integrity="sha512-emSwuKiMyYedRwflbZB2ghzX8Cw8fmNVgZ6yQNNXXagFzFOaQmbvQ1vmDkddHjm5AITcBIZfC7k4ShQSjgPAmQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+      // LOADER
+      window.addEventListener("load", function () {
+        document.getElementById("loader").style.display = "none";
+      });
+
+      // swiper js code
+
+      var swiper = new Swiper(".mySwiper", {
+        effect: "coverflow",
+        pagination: true,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        loop: true,
+        coverflowEffect: {
+          rotate: 1,
+          stretch: -50,
+          depth: 150,
+          modifier: 11,
+          // slideShadows: true,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          type: "progressbar",
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+
+      // AXIOS CODE FOR LIKING STORY
+
+      async function like(event, storyId) {
+        var response = await axios.get(`/likeStory/${storyId}`);
+        console.log(response.data.status);
+        if (response.data.status == "liked") {
+          event.target.style.color = "red";
+        } else {
+          event.target.style.color = "black";
+        }
+      }
+
+      // code for open delete story text
+
+      var click = 1;
+      document.querySelectorAll("#delete-icon").forEach(function (openInput) {
+        var click = 1;
+        openInput.addEventListener("click", function (event) {
+          if (click == 1) {
+            event.target.parentElement.querySelector(
+              "#delete-link"
+            ).style.display = "initial";
+            click = 2;
+          } else if (click == 2) {
+            event.target.parentElement.querySelector(
+              "#delete-link"
+            ).style.display = "none";
+            click = 1;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

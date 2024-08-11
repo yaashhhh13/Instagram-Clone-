@@ -11,244 +11,96 @@
       crossorigin="anonymous"
     />
     <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
-    rel="stylesheet"
-  />
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
   </head>
-
-  <style>
-    /*
-* Prefixed by https://autoprefixer.github.io
-* PostCSS: v8.4.14,
-* Autoprefixer: v10.4.7
-* Browsers: last 4 version
-*/
-
-* {
-      margin: 0;
-      padding: 0;
-      -webkit-box-sizing: border-box;
-              box-sizing: border-box;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-    }
-
-    #main {
-      width: 100%;
-      height: 100%;
-      /* background-color: rgb(166, 107, 169); */
-      background: -webkit-gradient(linear, left top, right top, from(purple), to(red));
-      background: -o-linear-gradient(left, purple, red);
-      background: linear-gradient(to right, purple, red);
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-          -ms-flex-align: center;
-              align-items: center;
-      -webkit-box-pack: center;
-          -ms-flex-pack: center;
-              justify-content: center;
-    }
-
-    #login {
-      width: 45%;
-      height: 100%;
-      background-color: black;
-      color: white;
-      font-family: gilroy;
-      /* overflow: hidden; */
-      position: relative;
-    }
-
-    #nav{
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-          -ms-flex-align: center;
-              align-items: center;
-      margin-left: 210px;
-      margin-top: 20px;
-    }
-
-    #nav i{
-      font-size: 30px;
-    }
-
-    #login>h1{
-      font-size: 40px;
-      position: absolute;
-      font-style: italic;
-      /* font-family: cursive; */
-      font-family: serif;
-      top: 20%;
-      left: 37%;
-    }
-
-    #login form{
-      position: absolute;
-      top: 30%;
-      left: 20%;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-          -ms-flex-direction: column;
-              flex-direction: column;
-      gap: 20px;
-    }
-
-    #login form input{
-      padding: 10px 10px;
-      font-size: 25px;
-      border-radius: 10px;
-      border: none;
-      outline: none;
-      background-color: rgb(237, 235, 235);
-      width: 140%;
-      text-align: center;
-      text-transform: capitalize;
-    }
-
-    #login form button{
-      padding: 10px 30px;
-      background-color: rgb(44, 44, 231);
-      font-size: 30px;
-      border: none;
-      outline: none;
-      border-radius: 30px;
-      margin-left: 100px;
-      color: rgb(237, 235, 235);
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
-    }
-
-    #login>p{
-      position: absolute;
-      top: 58%;
-      left: 19%;
-      text-transform: capitalize;
-      font-size: 20px;
-      color: rgba(255, 255, 255, 0.600);
-    }
-
-    #login>p span{
-      color: white;
-      text-transform: none;
-    }
-
-    .option{
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-          -ms-flex-align: center;
-              align-items: center;
-      position: absolute;
-      top: 63%;
-      left: 15%;
-      gap: 5px;
-      color: rgba(255, 255, 255, 0.712);
-    }
-
-    .line{
-      width: 220px;
-      height: 2px;
-      background-color: rgba(255, 255, 255, 0.512);
-      margin-bottom: 7px;
-    }
-
-    .log-with-fb{
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-          -ms-flex-align: center;
-              align-items: center;
-      position: absolute;
-      top: 67%;
-      left: 27%;
-      gap: 4px;
-    }
-
-    .log-with-fb i{
-      color: rgb(9, 114, 212);
-      font-size: 40px;
-    }
-
-    .log-with-fb h4{
-      margin-top: 9px;
-      color: rgb(10, 105, 194);
-    }
-
-    #login hr{
-      height: 1px;
-      /* background-color: white; */
-      margin-top: 700px;
-    }
-
-    #go-to-register{
-      position: absolute;
-      top: 92%;
-      left: 27%;
-      text-transform: capitalize;
-      font-size: 20px;
-      color: rgba(255, 255, 255, 0.600);
-      cursor: pointer;
-    }
-
-    #go-to-register span{
-      color: white;
-      text-transform: none;
-    }
-
-    @media (max-width:700px) {
-      #login{
-      width: 100%;
-      }
-    }
-  </style>
-
   <body>
+    <div
+      id="loader"
+      class="fixed inset-0 flex flex-col justify-center items-center bg-white z-50"
+    >
+      <div class="loader"></div>
+      <h1 class="text-3xl mt-2">Loading...</h1>
+    </div>
     <div id="main">
-      <div id="login">
-        <div id="nav">
-          <h4>English (United States)<i class="ri-arrow-down-s-line"></i></h4>
-        </div>
-        <h1>Instagram</h1>
-        <form action="/login" method="post">
-          <input type="text" name="username" placeholder="enter your username" />
-          <input
-            type="password"
-            name="password"
-            placeholder="enter your password"
+      <div
+        class="w-full h-screen flex flex-col items-center justify-center text-center"
+      >
+        <div class="lg:w-1/4 md:w-1/2 sm:w-full lg:border p-4">
+          <img
+            class="h-10 my-2"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/150px-Instagram_logo.svg.png"
+            alt="instagram"
           />
-          <button>Submit</button>
-        </form>
-        <p>forgot your login details? <span>Get Help Logging in.</span></p>
-        <div class="option">
-          <div class="line"></div>
-          <h3>OR</h3>
-          <div class="line"></div>
+          <form class="w-full mt-8" method="post" action="/login">
+            <input
+              class="w-full p-2 mt-4 border outline-none"
+              placeholder="username"
+              required
+              name="username"
+            />
+            <input
+              class="w-full p-2 mt-4 border outline-none"
+              placeholder="password"
+              type="password"
+              required
+              name="password"
+            />
+            <button
+              class="w-full rounded-xl bg-blue-500 text-white text-center py-2 text-xl mt-4"
+            >
+              Login
+            </button>
+          </form>
+          <div class="mt-4 flex items-center gap-2">
+            <div class="line w-full py-[0.5px] opacity-50 bg-black"></div>
+            <h3>OR</h3>
+            <div class="line w-full py-[0.5px] opacity-50 bg-black"></div>
+          </div>
+          <h1 class="mt-4">Forgot Password ?</h1>
         </div>
-        <div class="log-with-fb">
-          <i class="ri-facebook-circle-fill"></i>
-          <h4>Log in with Facebook</h4>
+        <div
+          class="lg:w-1/4 md:w-1/2 sm:w-full h-[10%] lg:border py-4 px-12 mt-4"
+        >
+          <h1>
+            Don't have an account?
+            <a class="text-blue-500" href="/register">Sign up</a>
+          </h1>
         </div>
-        <hr>
-        <a href="/register"><small id="go-to-register">don't have an account? <span>Sign up.</span></small></a>
+        <div
+          class="md:w-3/4 sm:w-full text-md mt-4 grid md:grid-cols-10 grid-cols-5 max-[650px]:gap-2"
+        >
+          <h1>Meta</h1>
+          <h1>About</h1>
+          <h1>Blog</h1>
+          <h1>Jobs</h1>
+          <h1>Help</h1>
+          <h1>API</h1>
+          <h1>Privacy</h1>
+          <h1>Terms</h1>
+          <h1>Locations</h1>
+          <h1>Threads</h1>
+        </div>
       </div>
     </div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
+    <script>
+      // LOADER
+      window.addEventListener("load", function () {
+        document.getElementById("loader").style.display = "none";
+      });
+    </script>
   </body>
 </html>
