@@ -3,11 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="./images/logo-ig-png-32464.png" />
   <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: "#da373d",
+          },
+        },
+      },
+    };
+  </script>
 </head>
 <body>
-  <div id="main">
-    helloo
+  <div class="main w-full h-screen flex flex-col items-center justify-center text-center text-5xl">
+    <h1>
+      Hey, <%= user.fullName %> welcome to instagram clone . <br/> click <a class="underline" href="/feed">here</a> to visit the project.
+    </h1>
   </div>
 </body>
 </html>

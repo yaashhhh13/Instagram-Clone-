@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Instagram CLone</title>
+    <link rel="icon" type="image/svg+xml" href="./images/logo-ig-png-32464.png" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
@@ -94,11 +95,13 @@
                     Delete
                   </h1></a
                 >
-                <i
-                  id="delete-icon"
-                  class="ri-more-2-fill"
-                  style="font-size: 20px; cursor: pointer"
-                ></i>
+                <% if(story.user.username == user.username){ %>
+                  <i
+                    id="delete-icon"
+                    class="ri-more-2-fill"
+                    style="font-size: 20px; cursor: pointer"
+                  ></i>
+                <% } %>
               </div>
             </div>
             <img src="<%= story.media %>" class="mt-2" />
@@ -143,13 +146,11 @@
         pagination: true,
         centeredSlides: true,
         slidesPerView: "auto",
-        loop: true,
         coverflowEffect: {
           rotate: 1,
           stretch: -50,
           depth: 150,
           modifier: 11,
-          // slideShadows: true,
         },
         pagination: {
           el: ".swiper-pagination",

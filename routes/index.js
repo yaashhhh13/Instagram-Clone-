@@ -22,9 +22,11 @@ try {
 
   /* GET home page. */
   router.get('/', isLoggedIn, async function (req, res, next) {
-    var allUsers = await users.find()
+    var currentUser = await users.findOne({
+      username: req.session.passport.user
+    }) 
     // res.render('index', { allUsers : allUsers });
-    res.send(allUsers)
+    res.render("index", {user: currentUser})
   });
 
   router.get('/register', function (req, res, next) {
@@ -205,7 +207,7 @@ try {
     res.render("profile", { user: userDetails, posts: allPosts })
   })
 
-  router.get("/upload", function (req, res, next) {
+  router.get("/upload",isLoggedIn ,function (req, res, next) {
     res.render("upload");
   })
 
@@ -287,12 +289,6 @@ try {
     }
 
     await CurrentStory.save();
-
-    // res.redirect("back");
-
-    // res.json({
-    //   status: "liked"
-    // })
   })
 
 
@@ -407,7 +403,11 @@ try {
 
     var stories = await storyModel.find().populate('user');
 
-    res.render("fullStory", { stories: stories })
+    var currentUser = await users.findOne({
+      username: req.session.passport.user
+    }) 
+
+    res.render("fullStory", { stories: stories, user: currentUser })
   })
 
 
